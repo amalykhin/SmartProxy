@@ -1,0 +1,17 @@
+{
+  "name": "persistence-service",
+  "version": "1.0.0",
+  "description": "A small microservice that persists input messages into a mongodb replica set.",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongodb": "^3.4.0",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Malykhin Andrey",
+  "license": "ISC"
+}
