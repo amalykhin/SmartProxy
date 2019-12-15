@@ -1,27 +1,20 @@
-version: "3"
+version: "3.7"
 services:
-  mongo0:
-    hostname: mongo0
-    container_name: mongo0
+  mongo:
     image: mongo
     ports:
-      - 27017:27017
+      - 27017-27019:27017
     restart: always
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
-  mongo1:
-    hostname: mongo1
-    container_name: mongo1
-    image: mongo
+    command: /usr/bin/mongod --bind_ip_all --replSet rs0
+  uservice:
+    build: persistence-service
     ports:
-      - 27018:27017
+      - 3000-3002:3000
+    depends_on: 
+      - mongo
     restart: always
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
-  mongo2:
-    hostname: mongo2
-    container_name: mongo2
-    image: mongo
+  redis:
+    image: redis
+    container_name: cache
     ports:
-      - 27019:27017
-    restart: always
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
-
+      - 6379:6379

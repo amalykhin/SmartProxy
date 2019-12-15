@@ -3,7 +3,7 @@
 const express = require('express');
 const MongoClient = require('mongodb').MongoClient;
 //const dbUri = 'mongodb://localhost:27019';
-const dbUri = 'mongodb://mongo2:27019,mongo0:27017,mongo1:27018/?replicaSet=rs0';
+const dbUri = 'mongodb://smartproxy_mongo_2:27019,smartproxy_mongo_1:27017,smartproxy_mongo_2:27018/?replicaSet=rs0';
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -48,7 +48,7 @@ app.post('/messages', (req, res) => {
 	console.log(`Inside "/messages" POST handler. Message: ${JSON.stringify(message)}`);
 	const collection = client.db('lab3').collection('messages');
 	collection.find().sort({ id: -1 }).limit(1).toArray((err, result) => {
-		const lastId = result[0].id || 0;
+		const lastId = result[0] && result[0].id || 0;
 		console.log(`New id: ${JSON.stringify(lastId)}`);
 		message.id = lastId + 1;
 		collection.insertOne(message);
